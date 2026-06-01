@@ -7,471 +7,7 @@
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-
-  /* ── Variables ────────────────────────────────────────── */
-  :root {
-    --slate:   #1D2E3E;
-    --stone:   #7E8C96;
-    --stone-lt:#BFC8CF;
-    --cream:   #F5F3EF;
-    --white:   #FFFFFF;
-    --accent:  #5C7A6E;
-    --gold:    #B89A6A;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
-    background: var(--white);
-    color: var(--slate);
-    line-height: 1.65;
-  }
-
-  img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-  /* ── Utilities ────────────────────────────────────────── */
-  .label {
-    font-size: .68rem; font-weight: 500; letter-spacing: .22em;
-    text-transform: uppercase; color: var(--stone);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .label::before { content:''; width:24px; height:1px; background:var(--stone-lt); flex-shrink:0; }
-
-  h2.title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.5vw, 2.9rem);
-    font-weight: 700; line-height: 1.18;
-    color: var(--slate);
-  }
-  .body-text { font-size: .95rem; color: var(--stone); line-height: 1.8; }
-
-  .reveal {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity .65s ease, transform .65s ease;
-  }
-  .reveal.in { opacity: 1; transform: none; }
-
-  /* ── HEADER ───────────────────────────────────────────── */
-  header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 99;
-    background: rgba(255,255,255,.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(44,58,71,.07);
-    height: 68px;
-    display: flex; align-items: center;
-    padding: 0 6%;
-    justify-content: space-between;
-    transition: box-shadow .3s;
-  }
-  header.up { box-shadow: 0 2px 24px rgba(44,58,71,.09); }
-
-  .logo-wrap { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-  .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
-  .logo-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem; font-weight: 700;
-    color: var(--slate); letter-spacing: .02em; line-height: 1;
-  }
-  .logo-sub {
-    font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--stone); margin-top: 3px;
-  }
-
-  nav { display: flex; align-items: center; gap: 1.8rem; }
-  nav a {
-    font-size: .8rem; font-weight: 400; letter-spacing: .07em;
-    color: var(--slate); text-decoration: none;
-    opacity: .65; transition: opacity .2s;
-  }
-  nav a:hover { opacity: 1; }
-
-  .btn-soumission {
-    background: var(--slate);
-    color: var(--white);
-    font-family: 'Outfit', sans-serif;
-    font-size: .75rem; font-weight: 500;
-    letter-spacing: .1em; text-transform: uppercase;
-    padding: 11px 22px;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: background .25s, transform .2s;
-    white-space: nowrap;
-  }
-  .btn-soumission:hover { background: var(--accent); transform: translateY(-1px); }
-
-  /* ── HERO ─────────────────────────────────────────────── */
-  #accueil {
-    background-color: var(--cream);
-    margin-top: 68px;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    min-height: 52vh;
-  }
-
-  /* Left panel */
-  .hero-left {
-    background: var(--cream);
-    padding: 8% 6% 8% 8%;
-    display: flex; flex-direction: column;
-    justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .hero-left::after {
-    content: '';
-    position: absolute; bottom: -60px; left: -60px;
-    width: 260px; height: 260px;
-    border-radius: 50%;
-    border: 1.5px solid var(--stone-lt);
-    opacity: .4; pointer-events: none;
-  }
-
-  /* CHANGE 2: Logo above the h1 */
-  .hero-logo {
-    margin-bottom: 24px;
-    animation: fadeUp .7s .15s both;
-  }
-
-  .hero-left h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
-    font-weight: 700; line-height: 1.15;
-    color: var(--slate); margin-bottom: 20px;
-    animation: fadeUp .7s .25s both;
-  }
-  .hero-left h1 em { font-style: italic; color: var(--stone); }
-
-  .hero-slogan {
-    font-size: 1rem; color: var(--stone); line-height: 1.75;
-    max-width: 420px; margin-bottom: 14px;
-    animation: fadeUp .7s .4s both;
-  }
-
-  .hero-region {
-    display: flex; align-items: center; gap: 7px;
-    font-size: .78rem; color: var(--accent); font-weight: 500;
-    margin-bottom: 40px;
-    animation: fadeUp .7s .5s both;
-  }
-  .hero-region::before { content: '📍'; font-size: .85rem; }
-
-  .hero-btns {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    animation: fadeUp .7s .55s both;
-  }
-
-  .btn-primary {
-    background: var(--slate); color: var(--white);
-    font-family: 'Outfit', sans-serif;
-    font-size: .78rem; font-weight: 500; letter-spacing: .1em;
-    text-transform: uppercase; padding: 13px 26px;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: background .25s, transform .2s;
-  }
-  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-
-  .btn-secondary {
-    background: transparent;
-    border: 1.5px solid var(--slate);
-    color: var(--slate);
-    font-family: 'Outfit', sans-serif;
-    font-size: .78rem; font-weight: 500; letter-spacing: .1em;
-    text-transform: uppercase; padding: 13px 26px;
-    text-decoration: none; cursor: pointer;
-    transition: all .25s;
-  }
-  .btn-secondary:hover { background: var(--slate); color: var(--white); }
-
-  /* CHANGE 3: Right hero panel — Myrna cour photo, no zoom */
-  .hero-right {
-    position: relative; overflow: hidden;
-    background: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 620px;
-  }
-
-  .hero-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-  }
-
-  /* ── SECTIONS COMMUNES ────────────────────────────────── */
-  section { padding: 90px 8%; }
-
-  .section-head { margin-bottom: 56px; }
-  .section-head.center { text-align: center; }
-  .section-head.center .label { justify-content: center; }
-  .section-head.center .label::before { display: none; }
-  .section-head .label { margin-bottom: 14px; }
-  .section-head h2.title { margin-bottom: 16px; }
-  .section-head .body-text { max-width: 520px; }
-  .section-head.center .body-text { margin: 0 auto; }
-
-  /* ── SERVICES ─────────────────────────────────────────── */
-  #services { background: var(--cream); }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
-
-  .service-card {
-    background: var(--white);
-    padding: 44px 36px;
-    position: relative;
-    transition: transform .3s, box-shadow .3s;
-    overflow: hidden;
-  }
-  .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 48px rgba(44,58,71,.1);
-    z-index: 1;
-  }
-
-  .service-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem; font-weight: 700;
-    color: var(--stone-lt); line-height: 1; margin-bottom: 24px;
-  }
-
-  .service-icon {
-    width: 42px; height: 42px; margin-bottom: 20px;
-    color: var(--accent);
-  }
-
-  .service-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem; font-weight: 600;
-    color: var(--slate); margin-bottom: 12px;
-  }
-
-  .service-text { font-size: .88rem; color: var(--stone); line-height: 1.8; }
-
-  .service-steps {
-    list-style: none; margin-top: 18px;
-    display: flex; flex-direction: column; gap: 7px;
-  }
-  .service-steps li {
-    font-size: .82rem; color: var(--stone);
-    display: flex; align-items: flex-start; gap: 8px;
-  }
-  .service-steps li::before {
-    content: '—'; color: var(--stone-lt); flex-shrink: 0; margin-top: 1px;
-  }
-
-  .service-card::after {
-    content: '';
-    position: absolute; bottom: -30px; right: -30px;
-    width: 100px; height: 100px; border-radius: 50%;
-    border: 1.5px solid var(--stone-lt); opacity: .3;
-    pointer-events: none;
-  }
-
-  /* ── GALERIE ──────────────────────────────────────────── */
-  #galerie { background: var(--white); }
-
-  /* CHANGE 4: Gallery grid — clean layout, no excess zoom */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-  }
-
-  .gallery-item {
-    position: relative; overflow: hidden;
-    background: #f0eeeb; cursor: pointer;
-    height: 280px;
-  }
-
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform .4s ease;
-  }
-  .gallery-item:hover img { transform: scale(1.03); }
-
-  /* Before/After items: show full image without cropping */
-  .gallery-item.avap img {
-    object-fit: contain;
-    background: #1a2530;
-  }
-
-  /* hover overlay */
-  .gallery-item::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(29,46,62,.6), transparent 55%);
-    opacity: 0; transition: opacity .35s;
-  }
-  .gallery-item:hover::after { opacity: 1; }
-
-  .gallery-label {
-    position: absolute; bottom: 14px; left: 14px;
-    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--white); z-index: 3;
-    background: rgba(29,46,62,.7); padding: 5px 11px;
-    opacity: 0; transform: translateY(5px);
-    transition: opacity .35s, transform .35s;
-  }
-  .gallery-item:hover .gallery-label { opacity: 1; transform: none; }
-
-  /* Always-visible AVANT / APRÈS badge */
-  .avap-badge {
-    position: absolute;
-    bottom: 14px; left: 50%;
-    transform: translateX(-50%);
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(29,46,62,.85);
-    backdrop-filter: blur(4px);
-    padding: 7px 18px;
-    z-index: 4; white-space: nowrap;
-  }
-  .avap-left, .avap-right {
-    font-size: .75rem; font-weight: 600; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--white);
-  }
-  .avap-left { color: #f0c070; }
-  .avap-right { color: #8ecfb0; }
-  .avap-sep { color: rgba(255,255,255,.5); font-size: .8rem; }
-
-  /* ── ÉQUIPE ───────────────────────────────────────────── */
-  #equipe {
-    background: var(--slate);
-    padding: 90px 8%;
-    color: var(--white);
-    position: relative; overflow: hidden;
-  }
-  #equipe::before {
-    content: '';
-    position: absolute; right: -80px; top: -80px;
-    width: 380px; height: 380px; border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,.05);
-    pointer-events: none;
-  }
-  #equipe::after {
-    content: '';
-    position: absolute; right: 20px; top: 20px;
-    width: 240px; height: 240px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.04);
-    pointer-events: none;
-  }
-
-  .equipe-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
-  }
-
-  #equipe .label { color: rgba(255,255,255,.4); }
-  #equipe .label::before { background: rgba(255,255,255,.15); }
-  #equipe h2.title { color: var(--white); margin-bottom: 24px; }
-  #equipe .body-text { color: rgba(255,255,255,.65); font-size: .95rem; margin-bottom: 18px; }
-
-  .team-values { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-  .team-tag {
-    font-size: .72rem; font-weight: 500; letter-spacing: .1em;
-    text-transform: uppercase;
-    border: 1px solid rgba(255,255,255,.15);
-    color: rgba(255,255,255,.55);
-    padding: 7px 14px;
-  }
-
-  .equipe-visual { position: relative; z-index: 1; }
-  .equipe-card {
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.08);
-    padding: 36px 32px;
-  }
-  .equipe-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem; font-style: italic;
-    color: rgba(255,255,255,.8); margin-bottom: 20px; line-height: 1.5;
-  }
-  .equipe-detail { display: flex; flex-direction: column; gap: 12px; }
-  .equipe-row {
-    display: flex; align-items: flex-start; gap: 12px;
-    font-size: .83rem; color: rgba(255,255,255,.5);
-  }
-  .equipe-row span { color: var(--gold); font-size: .9rem; flex-shrink: 0; }
-
-  /* ── CONTACT ──────────────────────────────────────────── */
-  #contact { background: var(--cream); }
-
-  .contact-grid {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 24px;
-  }
-
-  .contact-info { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 520px; }
-
-  .contact-item {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 22px 24px; background: var(--white);
-    transition: transform .25s, box-shadow .25s;
-  }
-  .contact-item:hover { transform: translateX(4px); box-shadow: -3px 0 0 var(--accent), 0 6px 24px rgba(44,58,71,.07); }
-
-  .contact-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
-  .contact-label {
-    font-size: .68rem; letter-spacing: .15em; text-transform: uppercase;
-    color: var(--stone); margin-bottom: 5px; font-weight: 500;
-  }
-  .contact-val {
-    font-size: .95rem; color: var(--slate); font-weight: 400;
-    text-decoration: none; display: block;
-  }
-  .contact-val:hover { color: var(--accent); }
-  .contact-note { font-size: .8rem; color: var(--stone); margin-top: 3px; }
-
-  /* ── FOOTER ───────────────────────────────────────────── */
-  footer {
-    background: var(--slate);
-    padding: 36px 8%;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-  }
-  .footer-copy { font-size: .78rem; color: rgba(255,255,255,.35); }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: rgba(255,255,255,.6); }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a {
-    font-size: .75rem; color: rgba(255,255,255,.35);
-    text-decoration: none; letter-spacing: .06em; transition: color .2s;
-  }
-  .footer-links a:hover { color: rgba(255,255,255,.7); }
-
-  /* ── ANIMATIONS ───────────────────────────────────────── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* ── RESPONSIVE ───────────────────────────────────────── */
-  @media (max-width: 860px) {
-    #accueil { grid-template-columns: 1fr; }
-    .hero-right { min-height: 300px; max-height: 400px; }
-    nav { display: none; }
-    .services-grid { grid-template-columns: 1fr; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; }
-    .gallery-item { height: 200px; }
-    .equipe-inner { grid-template-columns: 1fr; gap: 40px; }
-    footer { flex-direction: column; text-align: center; }
-  }
-
-  @media (max-width: 560px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-    .gallery-item { height: 220px; }
-  }
-
-</style>
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
@@ -487,6 +23,7 @@
     <a href="#galerie">Galerie</a>
     <a href="#equipe">L'Équipe</a>
     <a href="#contact">Contact</a>
+    <a href="#soumission">Soumission</a>
   </nav>
 
   <a href="tel:4388203839" class="btn-soumission">Demander une soumission gratuite</a>
@@ -756,6 +293,64 @@
 </section>
 
 
+<!-- ═══════ SOUMISSION ═══════════════════════════════════════ -->
+<section id="soumission">
+  <div class="section-head center reveal">
+    <div class="label">Démarrer votre projet</div>
+    <h2 class="title">Demandez votre soumission</h2>
+    <p class="body-text">Remplissez le formulaire et on vous contacte dans les 24 heures avec un prix.</p>
+  </div>
+
+  <div class="form-wrap reveal">
+    <p class="form-notice">* Champs obligatoires</p>
+    <div class="form-error" id="form-error"></div>
+    <form id="soumission-form" novalidate>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-nom">Nom complet *</label>
+          <input class="form-input" type="text" id="f-nom" name="nom" required placeholder="Jean Tremblay">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-tel">Téléphone *</label>
+          <input class="form-input" type="tel" id="f-tel" name="telephone" required placeholder="514 000-0000">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-email">Courriel</label>
+        <input class="form-input" type="email" id="f-email" name="courriel" placeholder="jean@exemple.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-adresse">Adresse du terrain *</label>
+        <input class="form-input" type="text" id="f-adresse" name="adresse" required placeholder="123 Rue des Érables, Beloeil">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-service">Service souhaité *</label>
+        <select class="form-select" id="f-service" name="service" required>
+          <option value="">— Sélectionnez un service —</option>
+          <option value="Entretien Complet du Pavé">Entretien Complet du Pavé</option>
+          <option value="Pose de Scellant">Pose de Scellant</option>
+          <option value="Nettoyage Haute Pression">Nettoyage Haute Pression</option>
+          <option value="Autre / Je ne sais pas">Autre / Je ne sais pas</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-message">Notes / Message</label>
+        <textarea class="form-textarea" id="f-message" name="message" placeholder="Superficie approximative, disponibilités, détails du projet…"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary" id="submit-btn" style="width:100%;font-size:.82rem;padding:15px;">
+        Envoyer ma demande →
+      </button>
+    </form>
+  </div>
+</section>
+
+
 <!-- ═══════ FOOTER ════════════════════════════════════════════ -->
 <footer>
   <div class="footer-copy">© 2026 PolyPave Entretien de Pavés — Rive-Sud de Montréal</div>
@@ -788,6 +383,70 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => obs.observe(el));
+</script>
+
+<!-- ═══ FIREBASE — Formulaire de soumission ════════════════════ -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+  // ── ÉTAPE 1: Collez votre config Firebase ici ───────────────────────────
+  // Firebase Console → Paramètres du projet → Vos apps → Config web
+  const firebaseConfig = {
+    apiKey:            "AIzaSyB36kZnQ9kG8dKcmMm-CqrjLUzLhhXrYKU",
+    authDomain:        "polypave-52a3c.firebaseapp.com",
+    projectId:         "polypave-52a3c",
+    storageBucket:     "polypave-52a3c.firebasestorage.app",
+    messagingSenderId: "809808606051",
+    appId:             "1:809808606051:web:72f4dd7437e4bfddcdd956"
+  };
+  // ────────────────────────────────────────────────────────────────────────
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  const form      = document.getElementById('soumission-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const errorBox  = document.getElementById('form-error');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.style.display = 'none';
+
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    submitBtn.disabled    = true;
+    submitBtn.textContent = 'Envoi en cours…';
+
+    const data = {
+      nom:       form.nom.value.trim(),
+      telephone: form.telephone.value.trim(),
+      courriel:  form.courriel.value.trim(),
+      adresse:   form.adresse.value.trim(),
+      service:   form.service.value,
+      message:   form.message.value.trim(),
+      date:      new Date().toISOString()
+    };
+
+    try {
+      await addDoc(collection(db, 'soumissions'), data);
+      form.closest('.form-wrap').innerHTML = `
+        <div class="form-success">
+          <div class="form-success-icon">✅</div>
+          <div class="form-success-title">Demande reçue !</div>
+          <p class="form-success-text">
+            Merci, <strong>${data.nom}</strong>.<br>
+            On vous contacte dans les 24 heures au <strong>${data.telephone}</strong>.
+          </p>
+        </div>`;
+    } catch (err) {
+      console.error(err);
+      errorBox.style.display   = 'block';
+      errorBox.textContent     = 'Erreur lors de l\'envoi. Contactez-nous directement : 438 820-3839';
+      submitBtn.disabled       = false;
+      submitBtn.textContent    = 'Envoyer ma demande →';
+    }
+  });
 </script>
 
 </body>

@@ -1,0 +1,189 @@
+/* ── Variables ────────────────────────────────────────── */
+:root {
+  --slate:   #1D2E3E;
+  --stone:   #7E8C96;
+  --stone-lt:#BFC8CF;
+  --cream:   #F5F3EF;
+  --white:   #FFFFFF;
+  --accent:  #5C7A6E;
+  --gold:    #B89A6A;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  background: var(--cream);
+  color: var(--slate);
+  min-height: 100vh;
+  line-height: 1.65;
+}
+
+/* ── Login ────────────────────────────────────────────── */
+.login-wrap {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+
+.login-box {
+  background: var(--white);
+  padding: 52px 48px;
+  width: 100%; max-width: 380px;
+}
+
+.login-logo { margin-bottom: 32px; text-align: center; }
+
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--slate); margin-bottom: 6px;
+}
+
+.login-sub { font-size: .82rem; color: var(--stone); margin-bottom: 28px; }
+
+.login-input {
+  width: 100%;
+  border: 1.5px solid var(--stone-lt);
+  padding: 13px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: .95rem; color: var(--slate);
+  margin-bottom: 12px;
+  transition: border-color .2s;
+}
+.login-input:focus { outline: none; border-color: var(--accent); }
+
+.login-btn {
+  width: 100%;
+  background: var(--slate); color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  font-size: .8rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 14px; border: none; cursor: pointer;
+  transition: background .25s;
+}
+.login-btn:hover { background: var(--accent); }
+
+.login-error {
+  font-size: .82rem; color: #c53030;
+  margin-top: 10px; display: none;
+}
+
+/* ── Admin layout ─────────────────────────────────────── */
+.admin-wrap { display: none; }
+
+.admin-header {
+  background: var(--slate);
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.admin-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: var(--white);
+}
+
+.admin-header-sub { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: 3px; }
+
+.admin-back {
+  font-size: .75rem; color: rgba(255,255,255,.5);
+  text-decoration: none; letter-spacing: .06em; transition: color .2s;
+}
+.admin-back:hover { color: var(--white); }
+
+.admin-body { padding: 40px; max-width: 1100px; margin: 0 auto; }
+
+/* ── Stats ────────────────────────────────────────────── */
+.admin-stats { display: flex; gap: 16px; margin-bottom: 32px; }
+
+.stat-box { background: var(--white); padding: 22px 28px; flex: 1; }
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700; color: var(--slate);
+}
+
+.stat-label {
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--stone); margin-top: 4px;
+}
+
+/* ── Setup notice ─────────────────────────────────────── */
+.setup-notice {
+  background: #fffbeb; border-left: 3px solid var(--gold);
+  padding: 16px 20px; margin-bottom: 28px;
+  font-size: .85rem; line-height: 1.7; display: none;
+}
+.setup-notice strong { color: var(--slate); }
+.setup-notice a { color: var(--accent); }
+
+/* ── Submission cards ─────────────────────────────────── */
+.submissions-list { display: flex; flex-direction: column; gap: 12px; }
+
+.sub-card {
+  background: var(--white);
+  padding: 26px 30px;
+  border-left: 3px solid var(--stone-lt);
+  transition: border-color .2s;
+}
+.sub-card:hover { border-color: var(--accent); }
+
+.sub-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 12px; gap: 12px;
+}
+
+.sub-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 600; color: var(--slate);
+}
+
+.sub-date { font-size: .72rem; color: var(--stone); white-space: nowrap; }
+
+.sub-service {
+  display: inline-block;
+  font-size: .67rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); background: rgba(92,122,110,.08);
+  padding: 4px 10px; margin-bottom: 14px;
+}
+
+.sub-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.sub-field-label {
+  font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--stone); margin-bottom: 3px;
+}
+
+.sub-field-val { font-size: .88rem; color: var(--slate); }
+.sub-field-val a { color: var(--accent); text-decoration: none; }
+.sub-field-val a:hover { text-decoration: underline; }
+
+.sub-message {
+  margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid var(--cream);
+  font-size: .85rem; color: var(--stone); line-height: 1.7;
+  font-style: italic;
+}
+
+/* ── States ───────────────────────────────────────────── */
+.loading { text-align: center; padding: 60px; color: var(--stone); }
+
+.empty-state { text-align: center; padding: 80px 20px; color: var(--stone); }
+.empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+.empty-state-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: var(--slate); margin-bottom: 10px;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  .admin-body { padding: 20px; }
+  .admin-stats { flex-direction: column; }
+  .sub-fields { grid-template-columns: 1fr; }
+  .admin-header { padding: 16px 20px; }
+}
