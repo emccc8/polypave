@@ -170,6 +170,37 @@ body {
   font-style: italic;
 }
 
+/* ── Contact button ───────────────────────────────────── */
+.btn-contact {
+  margin-top: 16px;
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Outfit', sans-serif;
+  font-size: .72rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 8px 16px; cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.btn-contact:hover { background: var(--accent); color: var(--white); }
+.btn-contact:disabled { opacity: .5; cursor: default; }
+
+.sub-contacted-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .7rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(92,122,110,.1);
+  padding: 3px 10px; margin-left: 10px;
+}
+
+.sub-card.contacte {
+  border-color: var(--stone-lt);
+  opacity: .6;
+}
+
+.sub-card.contacte .sub-name { color: var(--stone); }
+
 /* ── States ───────────────────────────────────────────── */
 .loading { text-align: center; padding: 60px; color: var(--stone); }
 

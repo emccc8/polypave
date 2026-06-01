@@ -64,7 +64,7 @@
 
 <script type="module">
   import { initializeApp }                                        from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getFirestore, collection, getDocs, orderBy, query }   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  import { getFirestore, collection, getDocs, orderBy, query, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
   // ── ÉTAPE 1: Collez votre config Firebase ici ───────────────────────────
   // Firebase Console → Paramètres du projet → Vos apps → Config web
@@ -149,6 +149,29 @@
 
       container.innerHTML = '<div class="submissions-list">' + docs.map(renderCard).join('') + '</div>';
 
+      container.addEventListener('click', async (e) => {
+        const btn = e.target.closest('.btn-contact');
+        if (!btn || btn.disabled) return;
+
+        const id = btn.dataset.id;
+        btn.disabled = true;
+        btn.textContent = '…';
+
+        try {
+          await updateDoc(doc(db, 'soumissions', id), {
+            contacte: true,
+            dateContacte: new Date().toISOString()
+          });
+          const card = btn.closest('.sub-card');
+          card.classList.add('contacte');
+          btn.outerHTML = '<span class="sub-contacted-badge">✓ Contacté</span>';
+        } catch (err) {
+          console.error(err);
+          btn.disabled = false;
+          btn.textContent = 'Marquer comme contacté';
+        }
+      });
+
     } catch (err) {
       console.error(err);
       container.innerHTML = `
@@ -167,10 +190,15 @@
       hour: '2-digit', minute: '2-digit'
     });
 
+    const contacted = sub.contacte === true;
+
     return `
-      <div class="sub-card">
+      <div class="sub-card${contacted ? ' contacte' : ''}">
         <div class="sub-top">
-          <div class="sub-name">${esc(sub.nom)}</div>
+          <div class="sub-name">
+            ${esc(sub.nom)}
+            ${contacted ? '<span class="sub-contacted-badge">✓ Contacté</span>' : ''}
+          </div>
           <div class="sub-date">${dateStr}</div>
         </div>
         <div class="sub-service">${esc(sub.service)}</div>
@@ -189,6 +217,7 @@
           </div>
         </div>
         ${sub.message ? `<div class="sub-message">"${esc(sub.message)}"</div>` : ''}
+        ${contacted ? '' : `<button class="btn-contact" data-id="${esc(sub.id)}">Marquer comme contacté</button>`}
       </div>`;
   }
 
