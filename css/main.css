@@ -284,10 +284,12 @@ section { padding: 90px 8%; }
 }
 .gallery-item:hover img { transform: scale(1.03); }
 
+.gallery-item.avap { height: 300px; }
 .gallery-item.avap img {
   object-fit: contain;
-  background: #1a2530;
+  background: var(--cream);
 }
+.gallery-item.avap-wide { grid-column: span 2; }
 
 .gallery-item::after {
   content: '';
@@ -492,22 +494,52 @@ footer {
 
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media (max-width: 860px) {
-  #accueil { grid-template-columns: 1fr; }
-  .hero-right { min-height: 300px; max-height: 400px; }
-  nav { display: none; }
-  .services-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; }
-  .gallery-item { height: 200px; }
-  .equipe-inner { grid-template-columns: 1fr; gap: 40px; }
-  footer { flex-direction: column; text-align: center; }
-}
+  section { padding: 64px 6%; }
 
-@media (max-width: 640px) {
-  .form-row { grid-template-columns: 1fr; }
-  .form-wrap { padding: 32px 24px; }
+  /* Header — logo seulement, nav + CTA cachés */
+  nav { display: none; }
+  .btn-soumission { display: none; }
+
+  /* Hero */
+  #accueil { grid-template-columns: 1fr; }
+  .hero-left { padding: 52px 6% 40px; }
+  .hero-right { min-height: 280px; max-height: 360px; }
+
+  /* Services */
+  .services-grid { grid-template-columns: 1fr; }
+
+  /* Gallery */
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-item { height: 180px; }
+  .gallery-item.avap { height: 220px; }
+  .gallery-item.avap-wide { grid-column: span 2; }
+
+  /* Équipe */
+  .equipe-inner { grid-template-columns: 1fr; gap: 40px; }
+  #equipe { padding: 64px 6%; }
+
+  /* Footer */
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
 }
 
 @media (max-width: 560px) {
+  section { padding: 48px 5%; }
+
+  /* Hero */
+  .hero-left h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .hero-btns { flex-direction: column; }
+  .hero-btns .btn-primary,
+  .hero-btns .btn-secondary { text-align: center; }
+  .hero-right { min-height: 220px; max-height: 280px; }
+
+  /* Gallery — colonne unique */
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-item { height: 220px; }
+  .gallery-item.avap { height: 240px; }
+  .gallery-item.avap-wide { grid-column: span 1; }
+
+  /* Form */
+  .form-row { grid-template-columns: 1fr; }
+  .form-wrap { padding: 28px 20px; }
 }
