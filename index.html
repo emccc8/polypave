@@ -438,7 +438,7 @@
         telephone: data.telephone,
         service:   data.service,
         adresse:   data.adresse
-      }, '8SVRqyMPdK9Jl0rEl').catch(() => {});
+      }, '8SVRqyMPdK9Jl0rEl').catch(err => console.error('EmailJS error:', err));
 
       form.closest('.form-wrap').innerHTML = `
         <div class="form-success">
