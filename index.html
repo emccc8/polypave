@@ -385,6 +385,8 @@
   reveals.forEach(el => obs.observe(el));
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <!-- ═══ FIREBASE — Formulaire de soumission ════════════════════ -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
@@ -430,6 +432,14 @@
 
     try {
       await addDoc(collection(db, 'soumissions'), data);
+
+      emailjs.send('service_qfwa1be', 'template_dsmk3rp', {
+        nom:       data.nom,
+        telephone: data.telephone,
+        service:   data.service,
+        adresse:   data.adresse
+      }, '8SVRqyMPdK9Jl0rEl').catch(() => {});
+
       form.closest('.form-wrap').innerHTML = `
         <div class="form-success">
           <div class="form-success-icon">✅</div>
